@@ -1,12 +1,17 @@
 name: Deploy to Render
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
       - name: Trigger Render deployment
         run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
