@@ -1,0 +1,26 @@
+{% extends "base_template.html" %}
+
+{% block title %}View my notepads{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">My notepads</h1>
+{% include "notepad/_messages.html" %}
+<a class="btn btn-primary mb-3" href="{{ url_for('notepad.create_notepad') }}">New notepad</a>
+{% for notepad in notepads %}
+    <div class="card">
+        <div class="card-body">
+            <h2 class="h4">
+                <a href="{{ url_for('notepad.get_notepad', notepad_id=notepad.id) }}">{{ notepad.title }}</a>
+            </h2>
+            <p style="white-space: pre-wrap;">{{ notepad.body }}</p>
+            <a class="btn btn-secondary" href="{{ url_for('notepad.edit_notepad', notepad_id=notepad.id) }}">Edit</a>
+            <form class="d-inline" method="POST" action="{{ url_for('notepad.delete_notepad', notepad_id=notepad.id) }}">
+                {{ form.hidden_tag() }}
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <p>You have no notepads.</p>
+{% endfor %}
+{% endblock %}

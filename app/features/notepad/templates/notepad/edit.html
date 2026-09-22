@@ -1,0 +1,15 @@
+{% extends "base_template.html" %}
+
+{% block title %}Edit notepad{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Edit notepad</h1>
+{% include "notepad/_messages.html" %}
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <form method="POST" action="{{ url_for('notepad.edit_notepad', notepad_id=notepad.id) }}">
+            {% include "notepad/_form.html" %}
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base_template.html" %}
+
+{% block title %}Notepad details{% endblock %}
+
+{% block content %}
+{% include "notepad/_messages.html" %}
+<h1 class="h3 mb-3">{{ notepad.title }}</h1>
+<div class="card">
+    <div class="card-body">
+        <p style="white-space: pre-wrap;">{{ notepad.body }}</p>
+        <a class="btn btn-secondary" href="{{ url_for('notepad.edit_notepad', notepad_id=notepad.id) }}">Edit</a>
+        <form class="d-inline" method="POST" action="{{ url_for('notepad.delete_notepad', notepad_id=notepad.id) }}">
+            {{ form.hidden_tag() }}
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+        <a class="btn btn-secondary" href="{{ url_for('notepad.index') }}">Back to Notepads</a>
+    </div>
+</div>
+{% endblock %}
